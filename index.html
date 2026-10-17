@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prince: The Albums</title>
+<meta name="description" content="Every Prince studio album from For You (1978) to Welcome 2 America (2021), with notes, tracklists and Spotify players.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --night: #110917;
+    --velvet: #1d1027;
+    --velvet-2: #26153a;
+    --line: #3a2650;
+    --text: #efe6f7;
+    --muted: #a894bd;
+    --faint: #6f5b85;
+    --purple: #a46bf0;
+    --purple-hi: #c9a3ff;
+    --gold: #e2bb6c;
+    --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+    --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "DM Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --gutter: clamp(16px, 4vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--text);
+    font: 16px/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--purple-hi); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-inline: var(--gutter);
+    padding-block: clamp(72px, 12vw, 150px) clamp(48px, 7vw, 88px);
+    background:
+      radial-gradient(120% 90% at 85% 0%, #3b1a5c 0%, transparent 60%),
+      radial-gradient(80% 70% at 0% 100%, #2a0f3d 0%, transparent 70%),
+      var(--night);
+    border-bottom: 1px solid var(--line);
+  }
+  #rain { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .hero-inner { position: relative; max-width: 1180px; margin: 0 auto; }
+  .eyebrow {
+    font: 500 12px/1 var(--mono);
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 22px;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(76px, 17vw, 220px);
+    line-height: .86;
+    letter-spacing: -.02em;
+    margin: 0;
+    background: linear-gradient(180deg, #f6ecff 10%, #c9a3ff 55%, #8a4fe0 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .hero h1 .sym { font-style: normal; font-weight: 400; color: var(--gold); -webkit-text-fill-color: var(--gold); font-size: .45em; vertical-align: .55em; margin-left: .08em; }
+  .lede {
+    max-width: 58ch;
+    margin: 28px 0 0;
+    font-size: clamp(17px, 2vw, 20px);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+  .lede em { color: var(--text); font-style: normal; }
+  .stats {
+    display: flex; flex-wrap: wrap; gap: 14px 40px;
+    margin: 40px 0 0; padding: 0; list-style: none;
+  }
+  .stats li { display: grid; gap: 2px; }
+  .stats b { font: 500 clamp(28px, 4vw, 40px)/1 var(--display); color: var(--text); font-variant-numeric: lining-nums tabular-nums; }
+  .stats span { font: 400 11px/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+    padding-inline: var(--gutter);
+    background: color-mix(in srgb, var(--night) 86%, transparent);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toolbar-inner {
+    max-width: 1180px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap;
+    padding-block: 12px;
+  }
+  .eras { display: flex; gap: 6px; flex-wrap: wrap; }
+  .eras button {
+    font: 500 13px/1 var(--mono); letter-spacing: .04em;
+    color: var(--muted); background: transparent;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 8px 13px; cursor: pointer;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .eras button:hover { color: var(--text); border-color: var(--faint); }
+  .eras button[aria-pressed="true"] { color: var(--night); background: var(--purple-hi); border-color: var(--purple-hi); }
+  .search { margin-left: auto; position: relative; flex: 1 1 220px; max-width: 320px; }
+  .search input {
+    width: 100%;
+    font: 15px/1 var(--body); color: var(--text);
+    background: var(--velvet); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px 10px 36px;
+  }
+  .search input::placeholder { color: var(--faint); }
+  .search svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--faint); fill: none; }
+  .count { font: 12px/1 var(--mono); color: var(--faint); letter-spacing: .08em; white-space: nowrap; }
+
+  /* ---------- Albums ---------- */
+  main { padding-inline: var(--gutter); padding-block: 24px 80px; }
+  .albums { max-width: 1180px; margin: 0 auto; display: grid; }
+  .decade {
+    display: flex; align-items: baseline; gap: 18px;
+    margin: 64px 0 8px;
+    font: 500 12px/1 var(--mono); letter-spacing: .24em; text-transform: uppercase; color: var(--gold);
+  }
+  .decade::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
+
+  .album {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    gap: 28px 56px;
+    padding-block: 48px;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 80px;
+  }
+  .decade + .album { border-top: 0; }
+  .album-year {
+    position: absolute; right: -6px; top: 18px; z-index: 0;
+    font: italic 400 clamp(90px, 14vw, 170px)/1 var(--display);
+    color: transparent; -webkit-text-stroke: 1px var(--line);
+    pointer-events: none; user-select: none;
+    letter-spacing: -.03em;
+  }
+  .album > * { position: relative; z-index: 1; }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 0 10px; font: 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  .meta .no { color: var(--gold); }
+  .meta .tag { color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px; letter-spacing: .1em; }
+  .album h2 {
+    font: 500 clamp(36px, 5.2vw, 60px)/1.02 var(--display);
+    letter-spacing: -.01em;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  .album h2 i { color: var(--purple-hi); }
+  .desc { margin: 0 0 30px; max-width: 62ch; color: #d6c8e4; text-wrap: pretty; }
+
+  .tl-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font: 500 11px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--faint);
+    padding-bottom: 10px; border-bottom: 1px solid var(--line); max-width: 640px;
+  }
+  .tracks { list-style: none; margin: 0; padding: 0; max-width: 640px; counter-reset: t; }
+  .tracks li.disc {
+    font: 500 11px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--gold);
+    padding: 18px 0 8px;
+  }
+  .tracks li.trk {
+    display: grid; grid-template-columns: 2.4em 1fr auto; gap: 10px; align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px dashed color-mix(in srgb, var(--line) 70%, transparent);
+    font-size: 15px;
+  }
+  .tracks .n { font: 12px/1 var(--mono); color: var(--faint); font-variant-numeric: tabular-nums; }
+  .tracks .d { font: 13px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .tracks li.trk.hit { background: linear-gradient(90deg, color-mix(in srgb, var(--purple) 22%, transparent), transparent); }
+  .tracks li.trk.hit .t { color: var(--purple-hi); }
+  .album:not(.open) .tracks li.more { display: none; }
+  .toggle {
+    margin-top: 14px;
+    font: 500 13px/1 var(--mono); letter-spacing: .06em;
+    color: var(--purple-hi); background: none; border: 0; padding: 6px 0; cursor: pointer;
+  }
+  .toggle:hover { color: var(--text); }
+
+  .player { align-self: start; position: sticky; top: 92px; }
+  .player iframe {
+    display: block; width: 100%; max-width: 100%; height: 352px;
+    border: 0; border-radius: 14px;
+    background: var(--velvet-2);
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.8), 0 0 0 1px var(--line);
+  }
+  .player .open-link { display: inline-block; margin-top: 10px; font: 12px/1 var(--mono); letter-spacing: .08em; color: var(--muted); text-decoration: none; }
+  .player .open-link:hover { color: var(--purple-hi); }
+  .unavailable {
+    height: 352px; border-radius: 14px; padding: 28px;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 10px;
+    background:
+      repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,.025) 14px 15px),
+      #050307;
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .unavailable b { font: italic 500 30px/1.1 var(--display); }
+  .unavailable span { color: var(--muted); font-size: 14px; }
+
+  .empty { text-align: center; color: var(--muted); padding: 80px 0; }
+  .empty b { display: block; font: italic 500 32px/1.2 var(--display); color: var(--text); margin-bottom: 6px; }
+
+  footer {
+    padding-inline: var(--gutter); padding-block: 40px 56px;
+    border-top: 1px solid var(--line);
+    color: var(--faint); font-size: 13px;
+  }
+  footer div { max-width: 1180px; margin: 0 auto; }
+
+  @media (max-width: 860px) {
+    .album { grid-template-columns: minmax(0, 1fr); }
+    .player { position: static; order: -1; }
+    .player iframe, .unavailable { height: 232px; }
+    .search { max-width: none; margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    #rain { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="eyebrow">The studio albums · 1978–2021</p>
+    <h1>Prince<span class="sym" aria-hidden="true">✦</span></h1>
+    <p class="lede">From a 19-year-old in Minneapolis playing every instrument on <em>For You</em> to the vault release of <em>Welcome 2 America</em>, every studio album in order, with a short note, the full tracklist and a player for each one.</p>
+    <ul class="stats" id="stats"></ul>
+  </div>
+</header>
+
+<nav class="toolbar" aria-label="Filter albums">
+  <div class="toolbar-inner">
+    <div class="eras" id="eras" role="group" aria-label="Decade"></div>
+    <label class="search">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="q" type="search" placeholder="Search albums or songs" aria-label="Search albums or songs" autocomplete="off">
+    </label>
+    <span class="count" id="count"></span>
+  </div>
+</nav>
+
+<main>
+  <div class="albums" id="albums"></div>
+</main>
+
+<footer>
+  <div>Tracklists from MusicBrainz, matched to the editions currently on Spotify. Players load from Spotify; sign in there to hear full tracks instead of previews.</div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+const NOTES = {
+  "For You": { title: "For You", year: 1978, tag: "Debut",
+    desc: "Prince was 19 when Warner Bros. gave him full creative control, almost unheard of for a new artist. He wrote, arranged, produced and played every instrument himself, layering his own falsetto into a choir on the a cappella opener. “Soft and Wet” gave him his first R&B hit." },
+  "Prince": { title: "Prince", year: 1979,
+    desc: "Made quickly to prove he could deliver a hit, and he did: “I Wanna Be Your Lover” topped the R&B chart and the album went platinum. Disco gloss sits next to rock guitar on “Bambi,” and “I Feel for You” became a smash for Chaka Khan five years later." },
+  "Dirty Mind": { title: "Dirty Mind", year: 1980,
+    desc: "Recorded mostly alone in his home studio and released close to demo form. Wiry new-wave guitars, cheap synths and lyrics that shocked radio. This is where the Minneapolis sound starts, and where the trench coat and bikini briefs made their debut." },
+  "Controversy": { title: "Controversy", year: 1981,
+    desc: "Dirty Mind’s raw funk pushed outward into politics, religion and Cold War paranoia. The title track asks the questions the press kept asking him, while “Annie Christian” and “Ronnie, Talk to Russia” show a darker, more topical writer." },
+  "1999": { title: "1999", year: 1982, tag: "Double album",
+    desc: "A sprawling double album built on the LinnDrum and long synth grooves, and the first record to put The Revolution on the cover. “Little Red Corvette” crossed him over to MTV and pop radio, and the title track became a New Year’s Eve standard." },
+  "Purple Rain": { title: "Purple Rain", year: 1984, tag: "Soundtrack",
+    desc: "The soundtrack to his film and the peak of his fame: 24 weeks at No. 1 in the US and an Academy Award for Best Original Song Score. “When Doves Cry” has no bass line at all. The title song, “I Would Die 4 U” and “Baby I’m a Star” were recorded live at First Avenue in Minneapolis." },
+  "Around the World in a Day": { title: "Around the World in a Day", year: 1985,
+    desc: "Released with almost no promotion and no lead single, a sharp left turn from Purple Rain into paisley psychedelia, finger cymbals and strings. It still gave him “Raspberry Beret” and “Pop Life,” and it named his future studio and label, Paisley Park." },
+  "Parade": { title: "Parade", year: 1986, tag: "Soundtrack",
+    desc: "Music for Under the Cherry Moon, the black-and-white film Prince directed. Clare Fischer’s orchestral arrangements meet stripped-down funk, and “Kiss” went to No. 1 on a guitar, a drum machine and a falsetto. It was the last album with The Revolution." },
+  "Sign o the Times": { title: "Sign o’ the Times", year: 1987, tag: "Double album",
+    desc: "Assembled from three abandoned projects (Dream Factory, Camille and Crystal Ball) after The Revolution split up. It ranges from bare drum-machine protest to gospel, psychedelic pop and his pitched-up “Camille” voice on “If I Was Your Girlfriend.” Often named his masterpiece." },
+  "Lovesexy": { title: "Lovesexy", year: 1988,
+    desc: "Written and recorded in about seven weeks to replace The Black Album, which he had pulled for being too dark. Joyful and spiritual, with a nude cover that some stores refused to stock. The original CD was a single track so it had to be heard as one piece." },
+  "Batman": { title: "Batman", year: 1989, tag: "Soundtrack",
+    desc: "Songs written for Tim Burton’s film after Prince saw early footage, several from the points of view of the Joker, Batman and Vicki Vale. “Batdance,” a collage of movie dialogue and guitar, went to No. 1 and so did the album." },
+  "Graffiti Bridge": { title: "Graffiti Bridge", year: 1990, tag: "Soundtrack",
+    desc: "The soundtrack to his sequel to Purple Rain, shared with The Time, George Clinton, Mavis Staples and a young Tevin Campbell. The film flopped, but “Thieves in the Temple” was a hit and “Joy in Repetition” is a fan favorite." },
+  "Diamonds and Pearls": { title: "Diamonds and Pearls", year: 1991,
+    desc: "The debut of the New Power Generation, a tighter band with live rap from Tony M. and Rosie Gaines’ big voice. Polished and radio-friendly, it gave him “Cream,” his last US No. 1 single, plus “Gett Off” and the title ballad. The cover was a hologram." },
+  "Love Symbol": { title: "Love Symbol", year: 1992, tag: "Concept album",
+    desc: "Titled with an unpronounceable glyph that became his name a year later. A loose rock-soap-opera about a princess and a prince, broken up by fake press interviews. “My Name Is Prince,” “Sexy M.F.” and the Eastern-tinged “7” are the highlights." },
+  "Come": { title: "Come", year: 1994,
+    desc: "Delivered to Warner Bros. at the height of his fight with the label, credited to “Prince 1958–1993” under a cemetery-gate cover. Moody and slow-burning, it closes with “Letitgo,” a quiet farewell to the name he had given up." },
+  "The Black Album": { title: "The Black Album", year: 1994, tag: "Withdrawn 1987",
+    desc: "Recorded in 1987 as a hard, party-funk rebuttal to critics who said he had gone soft. Prince recalled it a week before release, and 500,000 copies were destroyed. It became one of the most bootlegged records ever before a short official run in 1994. It is not on Spotify." },
+  "The Gold Experience": { title: "The Gold Experience", year: 1995,
+    desc: "Recorded before Come but held back by Warner during the name dispute. A muscular, guitar-heavy record tied together by the voice of an “NPG Operator,” and home to “The Most Beautiful Girl in the World,” which he had already released himself." },
+  "Chaos and Disorder": { title: "Chaos and Disorder", year: 1996,
+    desc: "His last album for Warner Bros., cut quickly with a lean band to end the contract. It is loud and loose, a garage-rock record by his standards, with “Dinner with Delores” as the lone single." },
+  "Emancipation": { title: "Emancipation", year: 1996, tag: "Triple album",
+    desc: "His first album after leaving Warner: three discs, each exactly 60 minutes long, released on his own NPG label. A celebration of freedom and his marriage to Mayte, with covers of “I Can’t Make U Love Me” and “Betcha by Golly Wow!” alongside house, ballads and funk." },
+  "Crystal Ball": { title: "Crystal Ball", year: 1998, tag: "Vault set",
+    desc: "Three discs of unreleased songs from the vault, sold first by phone and online pre-order, an early experiment in selling straight to fans. The ten-minute title track dates back to 1986 and was once meant to anchor its own triple album." },
+  "The Truth": { title: "The Truth", year: 1998, tag: "Acoustic",
+    desc: "Packaged as a bonus disc with Crystal Ball, this is the quietest record he ever made: acoustic guitar, voice and a few spare touches. Plainspoken songs about faith, power and the music business." },
+  "The Vault": { title: "The Vault… Old Friends 4 Sale", year: 1999, tag: "Archival",
+    desc: "Released by Warner Bros. from songs he had handed over to fulfill his old contract, recorded between 1985 and 1994. A jazzy, intimate set with horns and torch-song moods, ending on the lovely “Extraordinary.”" },
+  "Rave Un2 the Joy Fantastic": { title: "Rave Un2 the Joy Fantastic", year: 1999,
+    desc: "A big-label comeback on Arista with Clive Davis, full of guests: Sheryl Crow, Gwen Stefani, Chuck D, Ani DiFranco and Maceo Parker. It includes a cover of Crow’s “Everyday Is a Winding Road” and the slick title track he had started in 1988." },
+  "The Rainbow Children": { title: "The Rainbow Children", year: 2001, tag: "Concept album",
+    desc: "His first album back under the name Prince: a jazz-funk concept record about faith, shaped by his study as a Jehovah’s Witness and narrated in a slowed-down voice. Divisive on release, now admired for its musicianship." },
+  "One Nite Alone": { title: "One Nite Alone…", year: 2002, tag: "Solo piano",
+    desc: "Just Prince at the piano, singing. First sold to members of his NPG Music Club, it is soft-spoken and personal, and includes a cover of Joni Mitchell’s “A Case of You.”" },
+  "Xpectation": { title: "Xpectation", year: 2003, tag: "Instrumental",
+    desc: "A download-only instrumental jazz album for his music club, with Candy Dulfer on saxophone and Vanessa-Mae on violin. Every title starts with X." },
+  "N.E.W.S.": { title: "N.E.W.S", year: 2003, tag: "Instrumental",
+    desc: "Four instrumental pieces named for the points of the compass, each exactly 14 minutes long. Ambient jazz-fusion played live by his band, and it earned a Grammy nomination for Best Pop Instrumental Album." },
+  "Musicology": { title: "Musicology", year: 2004,
+    desc: "A back-to-basics funk and soul record that came free with every ticket to the Musicology Tour, which pushed it high up the charts. It won Grammys for “Call My Name” and the title song and reintroduced him to a new generation." },
+  "3121": { title: "3121", year: 2006,
+    desc: "Named after the address of the Los Angeles mansion he rented. His first No. 1 album since Batman, full of Latin touches and party funk such as “Black Sweat” and “Fury.”" },
+  "Planet Earth": { title: "Planet Earth", year: 2007,
+    desc: "In the UK it was given away free with a Sunday newspaper, to the anger of record stores, ahead of his 21-night run at London’s O2 Arena. A polished, guitar-flecked pop record with “Guitar” and “Chelsea Rodgers.”" },
+  "Lotusflow3r": { title: "Lotusflow3r", year: 2009,
+    desc: "Originally half of a three-disc set with MPLSound, sold through Target and his own website. It is his most guitar-forward album in years, with a cover of “Crimson and Clover” and long, bluesy solos." },
+  "20Ten": { title: "20Ten", year: 2010,
+    desc: "Never sold in shops: it was given away with newspapers and magazines across Europe. A bright, 1980s-flavored pop and funk record that many fans in the US could not hear for years." },
+  "Art Official Age": { title: "Art Official Age", year: 2014, tag: "Concept album",
+    desc: "His reunion with Warner Bros., co-produced with Joshua Welton. A sci-fi story about a man waking from suspended animation 45 years in the future, told through sleek electro-funk and soul." },
+  "Plectrumelectrum": { title: "Plectrumelectrum", year: 2014,
+    desc: "Released the same day as Art Official Age, with 3rdEyeGirl, his all-female rock trio. Recorded live to analog tape, it is the closest he came to a straight hard-rock band record." },
+  "HITnRUN Phase One": { title: "HITnRUN Phase One", year: 2015,
+    desc: "Released first as an exclusive on the Tidal streaming service. Brash, sample-heavy electronic pop made with Joshua Welton, with nods back to his own catalog." },
+  "HITnRUN Phase Two": { title: "HITnRUN Phase Two", year: 2015, tag: "Final album",
+    desc: "The last album released in his lifetime, built around horns and classic soul. It opens with “Baltimore,” written after the death of Freddie Gray, and was the warm, generous close to a 37-year run." },
+  "Welcome 2 America": { title: "Welcome 2 America", year: 2021, tag: "Posthumous",
+    desc: "Recorded in 2010 and shelved, then released from the vault five years after his death. A socially pointed record about race, technology and fame, played with Tal Wilkenfeld and Chris Coleman, that sounds even more prescient now." }
+};
+
+const ALBUMS = window.PRINCE_DATA.map(a => ({ ...a, ...NOTES[a.key] }))
+  .sort((a, b) => a.year - b.year);
+ALBUMS.forEach((a, i) => { a.no = i + 1; a.decade = Math.floor(a.year / 10) * 10; });
+
+const fmt = ms => { if (!ms) return "–"; const s = Math.round(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+const fmtLong = ms => { const m = Math.round(ms / 60000); return m >= 60 ? Math.floor(m / 60) + " hr " + (m % 60) + " min" : m + " min"; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+// Stats
+const allTracks = ALBUMS.reduce((n, a) => n + a.tracks.length, 0);
+const allMs = ALBUMS.reduce((n, a) => n + a.tracks.reduce((m, t) => m + (t[2] || 0), 0), 0);
+document.getElementById("stats").innerHTML = [
+  [ALBUMS.length, "studio albums"],
+  [allTracks, "tracks"],
+  [Math.round(allMs / 3600000), "hours of music"],
+  ["43", "years, 1978–2021"]
+].map(([b, s]) => `<li><b>${b}</b><span>${s}</span></li>`).join("");
+
+// Render
+const COLLAPSE = 12;
+const root = document.getElementById("albums");
+let lastDecade = null, html = "";
+for (const a of ALBUMS) {
+  if (a.decade !== lastDecade) {
+    html += `<div class="decade" data-decade="${a.decade}">The ${String(a.decade).slice(2)}s</div>`;
+    lastDecade = a.decade;
+  }
+  const discs = new Set(a.tracks.map(t => t[0])).size;
+  const total = a.tracks.reduce((m, t) => m + (t[2] || 0), 0);
+  let rows = "", curDisc = null;
+  a.tracks.forEach((t, i) => {
+    const more = i >= COLLAPSE ? " more" : "";
+    if (discs > 1 && t[0] !== curDisc) { rows += `<li class="disc${more}">Disc ${t[0]}</li>`; curDisc = t[0]; }
+    rows += `<li class="trk${more}"><span class="n">${String(i + 1).padStart(2, "0")}</span><span class="t">${esc(t[1])}</span><span class="d">${fmt(t[2])}</span></li>`;
+  });
+  const player = a.spotify
+    ? `<iframe title="${esc(a.title)} on Spotify" src="https://open.spotify.com/embed/album/${a.spotify}?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+       <a class="open-link" href="https://open.spotify.com/album/${a.spotify}" target="_blank" rel="noopener">Open in Spotify ↗</a>`
+    : `<div class="unavailable"><b>Not on Spotify</b><span>Pulled a week before its 1987 release and only briefly issued in 1994, The Black Album has never been licensed for streaming.</span></div>`;
+  html += `
+  <article class="album" id="${slug(a.title)}" data-decade="${a.decade}">
+    <div class="album-year" aria-hidden="true">${a.year}</div>
+    <div class="info">
+      <p class="meta"><span class="no">No. ${String(a.no).padStart(2, "0")}</span><span>${a.year}</span>${a.tag ? `<span class="tag">${a.tag}</span>` : ""}</p>
+      <h2>${esc(a.title)}</h2>
+      <p class="desc">${a.desc}</p>
+      <div class="tl-head"><span>${a.tracks.length} tracks${discs > 1 ? ` · ${discs} discs` : ""}</span><span>${fmtLong(total)}</span></div>
+      <ol class="tracks">${rows}</ol>
+      ${a.tracks.length > COLLAPSE ? `<button class="toggle" type="button" aria-expanded="false">Show all ${a.tracks.length} tracks</button>` : ""}
+    </div>
+    <div class="player">${player}</div>
+  </article>`;
+}
+html += `<div class="empty" id="empty" hidden><b>Nothing in the vault</b>No album or song matches that search.</div>`;
+root.innerHTML = html;
+
+root.addEventListener("click", e => {
+  const btn = e.target.closest(".toggle"); if (!btn) return;
+  const art = btn.closest(".album"); const open = art.classList.toggle("open");
+  btn.setAttribute("aria-expanded", open);
+  btn.textContent = open ? "Show fewer" : `Show all ${art.querySelectorAll(".trk").length} tracks`;
+});
+
+// Filters
+const decades = [...new Set(ALBUMS.map(a => a.decade))];
+const eras = document.getElementById("eras");
+eras.innerHTML = `<button type="button" data-d="all" aria-pressed="true">All</button>` +
+  decades.map(d => `<button type="button" data-d="${d}" aria-pressed="false">${String(d).slice(2)}s</button>`).join("");
+let decade = "all";
+eras.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  decade = b.dataset.d;
+  eras.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  apply();
+  document.querySelector("main").scrollIntoView({ block: "start" });
+});
+const q = document.getElementById("q");
+q.addEventListener("input", apply);
+
+function apply() {
+  const term = q.value.trim().toLowerCase();
+  let shown = 0;
+  root.querySelectorAll(".album").forEach((el, i) => {
+    const a = ALBUMS[i];
+    const inDecade = decade === "all" || String(a.decade) === decade;
+    const titleHit = !term || a.title.toLowerCase().includes(term);
+    let trackHit = false;
+    el.querySelectorAll(".trk").forEach(li => {
+      const hit = !!term && li.querySelector(".t").textContent.toLowerCase().includes(term);
+      li.classList.toggle("hit", hit); trackHit = trackHit || hit;
+    });
+    if (trackHit && el.querySelector(".trk.more.hit")) {
+      el.classList.add("open");
+      const t = el.querySelector(".toggle"); if (t) { t.textContent = "Show fewer"; t.setAttribute("aria-expanded", "true"); }
+    }
+    const show = inDecade && (titleHit || trackHit);
+    el.hidden = !show; if (show) shown++;
+  });
+  root.querySelectorAll(".decade").forEach(h => {
+    h.hidden = !root.querySelector(`.album[data-decade="${h.dataset.decade}"]:not([hidden])`);
+  });
+  document.getElementById("empty").hidden = shown > 0;
+  document.getElementById("count").textContent = shown === ALBUMS.length ? `${shown} albums` : `${shown} of ${ALBUMS.length}`;
+}
+apply();
+
+// Purple rain
+(function () {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = document.getElementById("rain"), x = c.getContext("2d");
+  let w, h, drops = [];
+  function size() {
+    const r = c.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    w = r.width; h = r.height; c.width = w * dpr; c.height = h * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drops = Array.from({ length: Math.round(w / 9) }, () => ({ x: Math.random() * w, y: Math.random() * h, l: 10 + Math.random() * 26, v: 2 + Math.random() * 5, a: .08 + Math.random() * .28 }));
+  }
+  size(); addEventListener("resize", size);
+  let visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(c);
+  (function tick() {
+    if (visible) {
+      x.clearRect(0, 0, w, h);
+      for (const d of drops) {
+        x.strokeStyle = `rgba(190,140,255,${d.a})`; x.lineWidth = 1;
+        x.beginPath(); x.moveTo(d.x, d.y); x.lineTo(d.x - d.l * .12, d.y + d.l); x.stroke();
+        d.y += d.v; d.x -= d.v * .12;
+        if (d.y > h) { d.y = -d.l; d.x = Math.random() * (w + 40); }
+      }
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
+</body>
+</html>
